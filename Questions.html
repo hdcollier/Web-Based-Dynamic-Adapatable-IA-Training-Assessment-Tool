@@ -1,0 +1,100 @@
+<html>
+<!-- This is code is the product of reserach conducted by Henry Collier as a Ph.D. candidate at the University of Colorado Colorado Springs -->
+<!-- This web based code was based on a standalone version of the Dynamic/Adapatable IA assessemnt tool creatd by Henry Collier. -->
+<!--  The web based version of this tool was developed by Henry Collier and Jacob Folsom. -->
+<!-- The Dynamic/Adaptable IA Training Assessment Tool is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License -->
+<head>
+    <title>Dynamic Adaptable Information Security Tool</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+</head>
+
+<body>
+    <script src="https://kit.fontawesome.com/5a3d5d0d28.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script>
+        var timerList = {}
+        $(document).ready(function() {
+            
+$("input[name='question-0-answers']").change(function(){
+    timerList['question-0-timer'] = (timer.getTime() / 1000)
+    timer.reset()
+$('#timerDict').val(JSON.stringify(timerList))
+});
+$("input[name='question-1-answers']").change(function(){
+   timerList['question-1-timer'] =Math.round(timer.getTime() / 1000)
+    timer.reset()
+$('#timerDict').val(JSON.stringify(timerList))
+});
+$("input[name='question-2-answers']").change(function(){
+    timerList['question-2-timer'] = (timer.getTime() / 1000)
+    timer.reset()
+$('#timerDict').val(JSON.stringify(timerList))
+});
+$("input[name='question-3-answers']").change(function(){
+    timerList['question-3-timer'] =(timer.getTime() / 1000)
+    timer.reset()
+    $('#timerDict').val(JSON.stringify(timerList))
+});
+});
+
+        
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Dynamic Adaptable Information Security Tool</a>
+        </div>
+    </nav>
+    <main class="container">
+        <div class="bg-light p-5 rounded">
+            <h1>Multiple Choice Questionnaire</h1>
+            <p class="lead">Please answer the following questions. When done, click next to move to the next page.</p>
+            <form action="/Questions" method="POST">
+                {% for x in range(0,numberOfQuestions) %}
+                <hr class="divider">
+                <div class="form-row-md">
+                    <div class="form-group">
+                        <div id="question-{{x}}-Form">
+                            <p id="question-{{x}}-Question" class="font-weight-bold"> {{x+1}}. {{ questions[x] }}</p>
+                            <div id="question-{{x}}-Answers" class="row">
+                                {% for i in range(0, 4) %}
+                                <div class="col">
+                                    <input type="radio" name="question-{{x}}-answers" id="question-{{x}}-answers" value="{{answers[x][i]}}" required />
+                                    <label for="question-{{x}}-answers">{{answers[x][i]}}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <hr class="divider">
+                <div class="form-row">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col justify-content-center">
+                                <p>
+                                    <button class="btn btn-primary" id="submitBtn" type="submit">
+                                        Next »
+                                    </button>
+                                </p>
+                                <input name="timerDict" type="text" id="timerDict" class="form-control" placeholder="Score" required="" autocomplete="off" style="visibility: hidden;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">The Dynamic/Adaptable IA Training Assessment Tool</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>
+
+        </div>
+    </main>
+</body>
+
+</html>
